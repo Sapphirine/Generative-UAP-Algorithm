@@ -1,0 +1,17 @@
+ImgId,PertId,PertType,Class,PertClass
+id1,v1,TypeV,1,10
+id1,v2,TypeV,1,11
+id1,v3,TypeV,1,12
+id1,v4,TypeV,1,13
+id1,c1,TypeC,1,2
+id1,c2,TypeC,1,2
+id1,c3,TypeC,1,2
+id1,c4,TypeC,1,2
+id2,v1,TypeV,2,2
+id2,v2,TypeV,2,2
+id2,v3,TypeV,2,2
+id2,v4,TypeV,2,3
+id2,c1,TypeC,2,2
+id2,c2,TypeC,2,2
+id2,c3,TypeC,2,2
+id2,c4,TypeC,2,3

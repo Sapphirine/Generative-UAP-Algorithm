@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Class Foolability Analysis</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    .column {
+      float: left;
+      width: 33.33%;
+      padding: 5px;
+    }
+
+    /* Clearfix (clear floats) */
+    .row::after {
+      content: "";
+      clear: both;
+      display: table;
+    }
+
+
+  </style>
+
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+</head>
+<body>
+
+<h2>Generative UAP Algorithm: Fooling Rate by Image Class</h2>
+<svg id = "svg1" width="100%" height="500"></svg>
+
+<h2>Image/Model Dependent UAP Algorithm: Fooling Rate by Image Class</h2>
+<svg id = "svg2" width="100%" height="500"></svg>
+
+
+<script>
+
+  var svg = d3.select("#svg1"),
+  margin = {
+	top: 50,
+	right: 50,
+	bottom: 50,
+	left: 50
+  },
+  width = +screen.width - margin.left - margin.right,
+  height = +svg.attr("height") - margin.top - margin.bottom,
+  g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+  var x = d3.scaleBand()
+	.rangeRound([0, width]);
+	//.padding(0.1);
+
+  var y = d3.scaleLinear()
+	.rangeRound([height, 0]);
+
+  var tooltip = d3.select("body")
+	.append("div")
+	.style("position", "absolute")
+	.style("z-index", "10")
+	.style("visibility", "hidden") 
+
+  var Data = {{data1 | safe}}
+
+  //var Data = [{Label:0,Value:0}, {Label:1,Value:1}, {Label:2,Value:4}]
+
+  x.domain(Data.map(function (d) {
+    return d.Index;
+  }));
+	
+  y.domain([0, 1]);
+
+  g.append("g")
+  .call(d3.axisLeft(y))
+  .style("font-weight", "bold")
+  .style("font-size", "20px")
+  .append("text")
+  .attr("fill", "#000")
+  .attr("transform", "rotate(-90)")
+  .attr("y", 6)
+  .attr("dy", "0.71em")
+  .attr("text-anchor", "end");
+
+  g.selectAll("bar")
+    .data(Data)
+    .enter().append("rect")
+    .attr("class", "bar")
+    .attr("x", function (d,i) {
+      return width*i/1000;
+    })
+    .attr("y", function (d) {
+        return y(Number(d.Value));
+    })
+    .attr("width", width/1000.0)
+    .attr("height", function (d) {
+      return height - y(Number(d.Value));
+    })
+    .style("fill", function(d) {
+      return "steelblue";    
+    })
+    .on("mouseover", function(d){
+      return tooltip.style("visibility", "visible").text(d.Value);
+    })
+    .on("mousemove", function(){
+      return tooltip.style("top", (event.pageY-10)+"px").style("left",(event.pageX+10)+"px");
+    })
+    .on("mouseout", function(){
+      return tooltip.style("visibility", "hidden");
+    });
+
+</script>
+
+<script>
+
+  var svg = d3.select("#svg2"),
+  margin = {
+	top: 50,
+	right: 50,
+	bottom: 50,
+	left: 50
+  },
+  width = +screen.width - margin.left - margin.right,
+  height = +svg.attr("height") - margin.top - margin.bottom,
+  g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+  var x = d3.scaleBand()
+	.rangeRound([0, width])
+	.padding(0.1);
+
+  var y = d3.scaleLinear()
+	.rangeRound([height, 0]);
+
+  var tooltip = d3.select("body")
+	.append("div")
+	.style("position", "absolute")
+	.style("z-index", "10")
+	.style("visibility", "hidden")  
+
+  var Data = {{data2 | safe}}
+
+  //var Data = [{Label:0,Value:0}, {Label:1,Value:1}, {Label:2,Value:4}]
+
+  x.domain(Data.map(function (d) {
+    return d.Index;
+  }));
+	
+  y.domain([0, 1]);
+
+  g.append("g")
+  .call(d3.axisLeft(y))
+  .style("font-weight", "bold")
+  .style("font-size", "20px")
+  .append("text")
+  .attr("fill", "#000")
+  .attr("transform", "rotate(-90)")
+  .attr("y", 6)
+  .attr("dy", "0.71em")
+  .attr("text-anchor", "end");
+
+  g.selectAll("bar")
+    .data(Data)
+    .enter().append("rect")
+    .attr("class", "bar")
+    .attr("x", function (d,i) {
+      return width*i/1000;
+    })
+    .attr("y", function (d) {
+        return y(Number(d.Value));
+    })
+    .attr("width", width/1000.0)
+    .attr("height", function (d) {
+      return height - y(Number(d.Value));
+    })
+    .style("fill", function(d) {
+      return "steelblue";    
+    })
+    .on("mouseover", function(d){
+      return tooltip.style("visibility", "visible").text(d.Value);
+    })
+    .on("mousemove", function(){
+      return tooltip.style("top", (event.pageY-10)+"px").style("left",(event.pageX+10)+"px");
+    })
+    .on("mouseout", function(){
+      return tooltip.style("visibility", "hidden");
+    });
+
+</script>
+
+</body>
+</html>
