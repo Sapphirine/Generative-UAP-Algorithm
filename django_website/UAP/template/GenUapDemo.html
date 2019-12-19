@@ -22,7 +22,9 @@
       display: table;
     }
 
-
+    .size {
+        width: 30vw;
+    }
   </style>
 
   <script src="https://d3js.org/d3.v5.min.js"></script>
@@ -36,21 +38,21 @@
 <div class = "row">
   <div class = "column">
     <figure>
-      <img src = "{% static "media/Image.JPEG" %}">
+      <img src = "{% static "media/Image.JPEG" %}" class = "size">
       <figcaption id = "caption_img_1">{{image_label}}</figcaption>
     </figure>
   </div>
   
   <div class = "column">
     <figure>
-      <img src = "{% static "media/Perturbation.JPEG" %}">
+      <img src = "{% static "media/Perturbation.JPEG" %}" class = "size">
       <figcaption id = "caption_img_2">{{purturbation_label}}</figcaption>
     </figure>
   </div>
 
   <div class = "column">
     <figure>
-      <img src = "{% static "media/ImageWithPerturbation.JPEG" %}">
+      <img src = "{% static "media/ImageWithPerturbation.JPEG" %}" class = "size">
       <figcaption id = "caption_img_2">{{image_with_perturbation}}</figcaption>
     </figure>
   </div>
